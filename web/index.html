@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    Orders:
+    <p id="orders"></p>
+    <form method="GET" action="http://localhost:8080/order">
+        <input type="search" name="order_id" placeholder="Укажите идентификатор заказа">
+        <input type="submit">
+    </form>
+</body>
+</html>
+
+<script>
+    const xhr = new XMLHttpRequest();
+    xhr.open("get", 'http://127.0.0.1:8080')
+    xhr.onload = () => {
+        if (xhr.status == 200) {
+            JSON.parse(xhr.responseText).forEach((v) => {
+                document.getElementById("orders").innerHTML += v.order_uid+"<br>"
+            })
+        } else {
+            console.log("Server response: ", xhr.statusText);
+        }
+    }
+    xhr.send()
+
+    console.log(xhr.response)
+</script>
